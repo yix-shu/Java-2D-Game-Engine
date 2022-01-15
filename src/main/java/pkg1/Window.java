@@ -6,6 +6,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -32,6 +33,13 @@ public class Window {
         init();
         loop();
 
+        //Memory release
+        glfwFreeCallbacks(glfwWindow);
+        glfwDestroyWindow(glfwWindow);
+
+        //Terminate GLFW and free the error callback
+        glfwTerminate();
+        glfwSetErrorCallback(null).free();
     }
     public void init(){
         //Setup error callback
