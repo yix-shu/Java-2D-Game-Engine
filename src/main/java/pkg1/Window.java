@@ -84,7 +84,14 @@ public class Window {
             glfwPollEvents();
             glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT); //flushes clear color to entire screen
+
+            /*
+            //Set up test to see if event listeners are working
+            if (KeyListener.isKeyPressed(GLFW_KEY_SPACE)){
+                System.out.println("Space key has been pressed");
+            }
             glfwSwapBuffers(glfwWindow);
+             */
         }
     }
 }
