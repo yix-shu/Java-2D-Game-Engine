@@ -70,7 +70,7 @@ public class Window {
         while (!glfwWindowShouldClose(glfwWindow)){
             //Poll events
             glfwPollEvents();
-            glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT); //flushes clear color to entire screen
             glfwSwapBuffers(glfwWindow);
         }
