@@ -25,6 +25,9 @@ public class Window {
         this.width = 1920;
         this.height = 1080;
         this.title = "2D Game Engine";
+        this.r = 1.0f;
+        this.b = 1.0f;
+        this.g = 1.0f;
     }
     public static void changeScene(int newScene){
         switch(newScene){
