@@ -16,12 +16,26 @@ public class Window {
     private int width, height;
     private String title;
     private static Window window;
+    public float r, g, b;
     private long glfwWindow; //this is a number that is a memory address to our window
+
+    private static Scene currentScene;
 
     private Window(){
         this.width = 1920;
         this.height = 1080;
         this.title = "2D Game Engine";
+    }
+    public static void changeScene(int newScene){
+        switch(newScene){
+            case 0:
+                currentScene = new LevelEditorScene();
+                //currentScene.init();
+                break;
+            case 1:
+                assert false : "Unknown scene '" + newScene + "'";
+                break;
+        }
     }
     public static Window get(){
         if (Window.window == null){
@@ -78,16 +92,21 @@ public class Window {
         glfwShowWindow(glfwWindow);
 
         GL.createCapabilities(); //makes sure we can use the bindings
+        Window.changeScene(0);
     }
     public void loop(){
         float beginTime = Time.getTime();
         float endTime = Time.getTime();
+        float dt = -1.0f;
 
         while (!glfwWindowShouldClose(glfwWindow)){
             //Poll events
             glfwPollEvents();
             glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT); //flushes clear color to entire screen
+            if (dt >= 0){
+                currentScene.update(dt);
+            }
 
             /*
             hmmm
@@ -98,7 +117,7 @@ public class Window {
             */
             glfwSwapBuffers(glfwWindow);
             endTime = Time.getTime();
-            float dt = endTime - beginTime;
+            dt = endTime - beginTime;
             beginTime = endTime;
         }
     }
