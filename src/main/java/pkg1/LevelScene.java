@@ -2,7 +2,7 @@ package pkg1;
 
 public class LevelScene extends Scene{
     public LevelScene(){
-        System.out.println("Inside level scnee");
+        System.out.println("Inside level scene");
     }
 
     @Override

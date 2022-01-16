@@ -33,6 +33,10 @@ public class Window {
                 //currentScene.init();
                 break;
             case 1:
+                currentScene = new LevelScene();
+                break;
+
+            default:
                 assert false : "Unknown scene '" + newScene + "'";
                 break;
         }
@@ -102,7 +106,7 @@ public class Window {
         while (!glfwWindowShouldClose(glfwWindow)){
             //Poll events
             glfwPollEvents();
-            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+            glClearColor(r, g, b, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT); //flushes clear color to entire screen
             if (dt >= 0){
                 currentScene.update(dt);
