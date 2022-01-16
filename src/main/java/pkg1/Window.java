@@ -5,6 +5,7 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+import util.Time;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -79,6 +80,9 @@ public class Window {
         GL.createCapabilities(); //makes sure we can use the bindings
     }
     public void loop(){
+        float beginTime = Time.getTime();
+        float endTime = Time.getTime();
+
         while (!glfwWindowShouldClose(glfwWindow)){
             //Poll events
             glfwPollEvents();
@@ -91,8 +95,11 @@ public class Window {
             if (KeyListener.isKeyPressed(GLFW_KEY_SPACE)){
                 System.out.println("Space key has been pressed");
             }
+            */
             glfwSwapBuffers(glfwWindow);
-             */
+            endTime = Time.getTime();
+            float dt = endTime - beginTime;
+            beginTime = endTime;
         }
     }
 }
