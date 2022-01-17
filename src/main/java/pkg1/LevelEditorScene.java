@@ -25,10 +25,31 @@ public class LevelEditorScene extends Scene{
             "}";
 
     private int vertexID, fragmentID, shaderProgram;
+    private float[] vertexArray = {
+            //vertices or position             //color
+            0.5f, -0.5f, 0.0f,                 1.0f, 0.0f, 0.0f, 1.0f, //Bottom right
+            -0.5f, 0.5f, 0.0f,                 0.0f, 1.0f, 0.0f, 1.0f, //Top left
+            0.5f, 0.5f, 0.0f,                  0.0f, 0.0f, 1.0f, 1.0f, //Top right
+            -0.5f, -0.5f, 0.0f,                1.0f, 1.0f, 0.0f, 1.0f, //Bottom right
+    };
+
+    //In counter-clockwise order
+    private int[] elementArray = {
+            /*
+                     x           x
+
+
+
+                     x           x
+             */
+            2, 1, 0, //Top right triangle
+            0, 1, 3  //Bottom left triangle
+    };
 
     public LevelEditorScene(){
 
     }
+
     @Override
     public void init(){
         //Compile and link shaders
@@ -78,7 +99,13 @@ public class LevelEditorScene extends Scene{
             System.out.println("ERROR: 'defaultShader.glsl'\n\tshader linking unsuccessful'");
             System.out.println(glGetProgramInfoLog(shaderProgram, len));
             assert false : "";
+
         }
+        //===========================================================
+        //Generate VAO, VBO, and EBO buffer objects, and send to GPU
+        //===========================================================
+
+
     }
 
     @Override
