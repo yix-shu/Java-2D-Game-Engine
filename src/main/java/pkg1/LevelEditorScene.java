@@ -1,6 +1,13 @@
 package pkg1;
 
+import org.lwjgl.BufferUtils;
+
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+
 import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL30.glBindVertexArray;
+import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class LevelEditorScene extends Scene{
 
@@ -45,6 +52,7 @@ public class LevelEditorScene extends Scene{
             2, 1, 0, //Top right triangle
             0, 1, 3  //Bottom left triangle
     };
+    private int vaoID, vboID, eboID;
 
     public LevelEditorScene(){
 
@@ -105,11 +113,62 @@ public class LevelEditorScene extends Scene{
         //Generate VAO, VBO, and EBO buffer objects, and send to GPU
         //===========================================================
 
+        vaoID = glGenVertexArrays(); //creating a new vertex array in GPU and returns unique ID
+        glBindVertexArray(vaoID); //makes sure everything we do below is to this vertex array
+
+        //Create a float buffer (must be passed bc expected by OpenGL) of vertices
+        FloatBuffer vertexBuffer = BufferUtils.createFloatBuffer(vertexArray.length);
+        vertexBuffer.put(vertexArray).flip();
+
+        //Create VBO upload the vertex buffer
+        vboID = glGenBuffers();
+        glBindBuffer(GL_ARRAY_BUFFER, vboID); //makes sure we are acting on this buffer
+
+        glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW); //sends buffer data and affirms data will not be changed, so static
+
+        //Create the indices and upload
+        IntBuffer elementBuffer = BufferUtils.createIntBuffer(elementArray.length);
+        elementBuffer.put(elementArray).flip();
+
+        eboID = glGenBuffers();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementBuffer, GL_STATIC_DRAW); //sending buffer created
+
+        //Add attribute pointers, tells the GPU which are positions and which are colors
+        int positionSize = 3;
+        int colorSize = 4;
+        int floatSizeBytes = 4;
+        int vertexSizeBytes = (positionSize + colorSize) * floatSizeBytes;
+        //defining the pattern in which the positions appear in
+        glVertexAttribPointer(0, positionSize, GL_FLOAT, false, vertexSizeBytes, 0);
+        glEnableVertexAttribArray(0);
+
+        //defining the pattern in which the color data appear in
+        glVertexAttribPointer(1, colorSize, GL_FLOAT, false, vertexSizeBytes, positionSize*floatSizeBytes);
+        glEnableVertexAttribArray(1);
 
     }
 
     @Override
     public void update(float dt) {
+        //Bind shader program
+        glUseProgram(shaderProgram);
 
+        //Bind the VAO that we're using
+        glBindVertexArray(vaoID);
+
+        //Enable the vertex atribute pointers
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
+
+        //specifies the shape we are drawing, the type, and where we start
+        glDrawElements(GL_TRIANGLES, elementArray.length, GL_UNSIGNED_INT, 0);
+
+        //unbind everything
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+
+        glBindVertexArray(0); //binds nothing
+        glUseProgram(0); //use program nothing
     }
 }
