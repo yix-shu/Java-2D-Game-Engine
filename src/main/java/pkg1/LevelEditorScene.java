@@ -56,8 +56,8 @@ public class LevelEditorScene extends Scene{
         glCompileShader(fragmentID);
 
         //Check for errors in compilation process
-        int success2 = glGetShaderi(fragmentID, GL_COMPILE_STATUS);
-        if (success2 == GL_FALSE){
+        success = glGetShaderi(fragmentID, GL_COMPILE_STATUS);
+        if (success == GL_FALSE){
             int len = glGetShaderi(fragmentID, GL_INFO_LOG_LENGTH);
             System.out.println("ERROR: 'defaultShader.glsl'\n\tFragment shader compilation unsuccessful'");
             System.out.println(glGetShaderInfoLog(fragmentID, len));
@@ -65,7 +65,20 @@ public class LevelEditorScene extends Scene{
         }
 
         //Link shaders and check for errors
+        shaderProgram = glCreateProgram();
+        glAttachShader(shaderProgram, vertexID);
+        glAttachShader(shaderProgram, fragmentID);
+        glLinkProgram(shaderProgram);
 
+
+        //Check for linking errors
+        success = glGetProgrami(shaderProgram, GL_LINK_STATUS);
+        if (success == GL_FALSE){
+            int len = glGetProgrami(shaderProgram, GL_INFO_LOG_LENGTH);
+            System.out.println("ERROR: 'defaultShader.glsl'\n\tshader linking unsuccessful'");
+            System.out.println(glGetProgramInfoLog(shaderProgram, len));
+            assert false : "";
+        }
     }
 
     @Override
