@@ -54,15 +54,15 @@ public class LevelEditorScene extends Scene{
             0, 1, 3  //Bottom left triangle
     };
     private int vaoID, vboID, eboID;
+    private Shader defaultShader;
 
     public LevelEditorScene(){
-        Shader testShader = new Shader("assets/shaders/default.glsl");
+        defaultShader = new Shader("assets/shaders/default.glsl");
+        defaultShader.compile();
     }
 
     @Override
     public void init(){
-
-
 
         //===========================================================
         //Generate VAO, VBO, and EBO buffer objects, and send to GPU
@@ -106,9 +106,8 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void update(float dt) {
-        //Bind shader program
-        glUseProgram(shaderProgram);
 
+        defaultShader.use();
         //Bind the VAO that we're using
         glBindVertexArray(vaoID);
 
@@ -123,7 +122,7 @@ public class LevelEditorScene extends Scene{
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
 
-        glBindVertexArray(0); //binds nothing
+        defaultShader.detach();
         glUseProgram(0); //use program nothing
     }
 }

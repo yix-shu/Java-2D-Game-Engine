@@ -38,9 +38,9 @@ public class Shader {
             }
 
             if (secondPattern.equals("vertex")){
-                vertexSource = splitString[1];
+                vertexSource = splitString[2];
             } else if (secondPattern.equals("fragment")){
-                fragmentSource = splitString[1];
+                fragmentSource = splitString[2];
             } else{
                 throw new IOException("Unexpected token '" + secondPattern + "'");
             }
@@ -107,10 +107,12 @@ public class Shader {
     }
 
     public void use(){
-
+        //Bind shader program
+        glUseProgram(shaderProgramID);
     }
 
     public void detach(){
-
+        //Bind shader program to nothing
+        glUseProgram(0);
     }
 }
