@@ -21,7 +21,7 @@ public class Shader {
             int eol = source.indexOf("\r\n", index); //finding end of line
             String firstPattern = source.substring(index, eol).trim(); //looking at the word returned (vertex or frag) after the word (#type )
 
-            index = source.indexOf("#type", eol);
+            index = source.indexOf("#type", eol) + 6;
             eol = source.indexOf("\r\n", index);
             String secondPattern = source.substring(index, eol).trim(); //looking at next type
 
