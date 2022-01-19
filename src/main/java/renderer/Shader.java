@@ -26,7 +26,7 @@ public class Shader {
             String secondPattern = source.substring(index, eol).trim(); //looking at next type
 
             if (firstPattern.equals("vertex")){
-                vertexSource = splitString[1]
+                vertexSource = splitString[1];
             } else if (firstPattern.equals("fragment")){
                 fragmentSource = splitString[1];
             } else{
@@ -34,7 +34,7 @@ public class Shader {
             }
 
             if (secondPattern.equals("vertex")){
-                vertexSource = splitString[1]
+                vertexSource = splitString[1];
             } else if (secondPattern.equals("fragment")){
                 fragmentSource = splitString[1];
             } else{
