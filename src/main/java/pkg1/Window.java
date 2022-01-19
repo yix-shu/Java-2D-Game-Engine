@@ -109,7 +109,7 @@ public class Window {
 
         while (!glfwWindowShouldClose(glfwWindow)){
             //Poll events
-            System.out.println("Running at " + (1.0f/dt)); //just looking at framerate
+            //System.out.println("Running at " + (1.0f/dt)); //just looking at framerate
             glfwPollEvents();
             glClearColor(r, g, b, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT); //flushes clear color to entire screen

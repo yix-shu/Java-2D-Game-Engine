@@ -61,55 +61,9 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void init(){
-        //Compile and link shaders
-        //First load and compile vertex shader
-        vertexID = glCreateShader(GL_VERTEX_SHADER);
-
-        //Pass the shader source to the GPU
-        glShaderSource(vertexID, vertexShaderSrc);
-        glCompileShader(vertexID);
-
-        //Check for errors in compilation process
-        int success = glGetShaderi(vertexID, GL_COMPILE_STATUS);
-        if (success == GL_FALSE){
-            int len = glGetShaderi(vertexID, GL_INFO_LOG_LENGTH);
-            System.out.println("ERROR: 'defaultShader.glsl'\n\tVertex shader compilation unsuccessful'");
-            System.out.println(glGetShaderInfoLog(vertexID, len));
-            assert false : "";
-        }
-        //Compile and link shaders
-        //First load and compile vertex shader
-        fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
-
-        //Pass the shader source to the GPU
-        glShaderSource(fragmentID, fragShaderSrc);
-        glCompileShader(fragmentID);
-
-        //Check for errors in compilation process
-        success = glGetShaderi(fragmentID, GL_COMPILE_STATUS);
-        if (success == GL_FALSE){
-            int len = glGetShaderi(fragmentID, GL_INFO_LOG_LENGTH);
-            System.out.println("ERROR: 'defaultShader.glsl'\n\tFragment shader compilation unsuccessful'");
-            System.out.println(glGetShaderInfoLog(fragmentID, len));
-            assert false : "";
-        }
-
-        //Link shaders and check for errors
-        shaderProgram = glCreateProgram();
-        glAttachShader(shaderProgram, vertexID);
-        glAttachShader(shaderProgram, fragmentID);
-        glLinkProgram(shaderProgram);
 
 
-        //Check for linking errors
-        success = glGetProgrami(shaderProgram, GL_LINK_STATUS);
-        if (success == GL_FALSE){
-            int len = glGetProgrami(shaderProgram, GL_INFO_LOG_LENGTH);
-            System.out.println("ERROR: 'defaultShader.glsl'\n\tshader linking unsuccessful'");
-            System.out.println(glGetProgramInfoLog(shaderProgram, len));
-            assert false : "";
 
-        }
         //===========================================================
         //Generate VAO, VBO, and EBO buffer objects, and send to GPU
         //===========================================================
