@@ -1,5 +1,6 @@
 package pkg1;
 
+import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import renderer.Shader;
 
@@ -63,7 +64,7 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void init(){
-
+        this.camera = new Camera(new Vector2f()); //setting up camera at 0, 0
         //===========================================================
         //Generate VAO, VBO, and EBO buffer objects, and send to GPU
         //===========================================================
@@ -108,6 +109,8 @@ public class LevelEditorScene extends Scene{
     public void update(float dt) {
 
         defaultShader.use();
+        defaultShader.uploadMat4("uProjection", camera.getProjectionMatrix());
+        defaultShader.uploadMat4("uView", camera.getViewMatrix());
         //Bind the VAO that we're using
         glBindVertexArray(vaoID);
 
