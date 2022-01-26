@@ -12,6 +12,7 @@ public class Camera {
         this.position = position;
         this.projectionMatrix = new Matrix4f();
         this.viewMatrix = new Matrix4f();
+        adjustProjection();
     }
     public void adjustProjection(){
         projectionMatrix.identity(); //creates an identity matrix
