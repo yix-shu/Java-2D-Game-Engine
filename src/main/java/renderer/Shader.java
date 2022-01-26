@@ -112,7 +112,7 @@ public class Shader {
     }
 
     public void detach(){
-        //Bind shader program to nothing
+        //Bind shader program to nothing, effectively detaching
         glUseProgram(0);
     }
 }
