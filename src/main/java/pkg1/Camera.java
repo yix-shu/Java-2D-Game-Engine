@@ -26,7 +26,7 @@ public class Camera {
         Vector3f cameraFront = new Vector3f(0.0f, 0.0f, -1.0f); //sets up which location is front
         Vector3f cameraUp = new Vector3f(0.0f, 1.0f, 0.0f); //which direction is up
         this.viewMatrix.identity();
-        this.viewMatrix = viewMatrix.lookAt(new Vector3f(position.x, position.y, 20.0f),
+        viewMatrix.lookAt(new Vector3f(position.x, position.y, 20.0f),
                 cameraFront.add(position.x, position.y, 0.0f),
                 cameraUp);
 
