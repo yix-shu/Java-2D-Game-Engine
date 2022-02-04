@@ -24,6 +24,6 @@ in vec4 fColor;
 out vec4 color;
 
 void main(){
-    float avg = (fColor.x + fColor.g + fColor.b) / 3;
-    color = vec4(avg, avg, avg, 1);
+    float noise = fract(sin(dot(fColor.xy, vec2(12.9898, 78.233)))*43758.5453);
+    color = fColor * noise; //creates a noise block for texture
 }
