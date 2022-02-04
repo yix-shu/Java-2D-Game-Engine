@@ -107,6 +107,9 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void update(float dt) {
+        //to test camera movement
+        camera.position.x -= dt * 50.0f;
+        camera.position.y -= dt * 50.0f;
 
         defaultShader.use();
         defaultShader.uploadMat4("uProjection", camera.getProjectionMatrix());
