@@ -36,11 +36,11 @@ public class LevelEditorScene extends Scene{
 
     private int vertexID, fragmentID, shaderProgram;
     private float[] vertexArray = {
-            //vertices or position             //color
-            100.5f, 0.5f, 0.0f,                 1.0f, 0.0f, 0.0f, 1.0f, //Bottom right
-            0.5f, 100.5f, 0.0f,                 0.0f, 1.0f, 0.0f, 1.0f, //Top left
-            100.5f, 100.5f, 0.0f,                  0.0f, 0.0f, 1.0f, 1.0f, //Top right
-            0.5f, 0.5f, 0.0f,                1.0f, 1.0f, 0.0f, 1.0f, //Bottom right
+            //vertices or position             //color                       //UV Coordinates
+            100.5f, 0.5f, 0.0f,                 1.0f, 0.0f, 0.0f, 1.0f,      1, 0,//Bottom right
+            0.5f, 100.5f, 0.0f,                 0.0f, 1.0f, 0.0f, 1.0f,      0, 1,//Top left
+            100.5f, 100.5f, 0.0f,               0.0f, 0.0f, 1.0f, 1.0f,      1, 1,//Top right
+            0.5f, 0.5f, 0.0f,                   1.0f, 1.0f, 0.0f, 1.0f,      0, 0 //Bottom right
     };
 
     //In counter-clockwise order
@@ -95,15 +95,20 @@ public class LevelEditorScene extends Scene{
         int positionSize = 3;
         int colorSize = 4;
         int floatSizeBytes = 4;
-        int vertexSizeBytes = (positionSize + colorSize) * floatSizeBytes;
+        int uvSize = 2; //2 UV's
+
+        int vertexSizeBytes = (positionSize + colorSize + uvSize) * Float.BYTES;
         //defining the pattern in which the positions appear in
         glVertexAttribPointer(0, positionSize, GL_FLOAT, false, vertexSizeBytes, 0);
         glEnableVertexAttribArray(0);
 
         //defining the pattern in which the color data appear in
-        glVertexAttribPointer(1, colorSize, GL_FLOAT, false, vertexSizeBytes, positionSize*floatSizeBytes);
+        glVertexAttribPointer(1, colorSize, GL_FLOAT, false, vertexSizeBytes, positionSize*Float.BYTES);
         glEnableVertexAttribArray(1);
 
+        //UV Coordinates
+        glVertexAttribPointer(2, uvSize, GL_FLOAT, false, vertexSizeBytes, (positionSize + colorSize)*Float.BYTES);
+        glEnableVertexAttribArray(2);
     }
 
     @Override
