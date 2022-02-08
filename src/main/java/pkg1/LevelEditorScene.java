@@ -62,6 +62,7 @@ public class LevelEditorScene extends Scene{
     private Texture testTexture; //for demo purposes
 
     GameObject testObj; //for testing
+    private boolean firstTime = false;
 
     public LevelEditorScene(){
         defaultShader = new Shader("assets/shaders/default.glsl");
@@ -156,5 +157,16 @@ public class LevelEditorScene extends Scene{
 
         defaultShader.detach();
         glUseProgram(0); //use program nothing
+        if (!firstTime){
+            System.out.println("Creating game object.");
+            GameObject go = new GameObject("Game Test 2");
+            go.addComponent(new SpriteRenderer());
+            this.addGameObject(go);
+            firstTime = true;
+        }
+
+        for (GameObject go: this.gameObjects){
+            go.update(dt);
+        }
     }
 }
