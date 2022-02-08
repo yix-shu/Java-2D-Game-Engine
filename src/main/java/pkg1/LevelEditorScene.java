@@ -3,6 +3,7 @@ package pkg1;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import renderer.Shader;
+import renderer.Texture;
 import util.Time;
 
 import java.nio.FloatBuffer;
@@ -57,6 +58,7 @@ public class LevelEditorScene extends Scene{
     };
     private int vaoID, vboID, eboID;
     private Shader defaultShader;
+    private Texture testTexture; //for demo purposes
 
     public LevelEditorScene(){
         defaultShader = new Shader("assets/shaders/default.glsl");
@@ -66,6 +68,9 @@ public class LevelEditorScene extends Scene{
     @Override
     public void init(){
         this.camera = new Camera(new Vector2f()); //setting up camera at 0, 0
+        defaultShader = new Shader("assets/shaders/default.glsl");
+        defaultShader.compile();
+        this.testTexture = new Texture("assets/images/testImage.jpg");
         //===========================================================
         //Generate VAO, VBO, and EBO buffer objects, and send to GPU
         //===========================================================
@@ -118,6 +123,11 @@ public class LevelEditorScene extends Scene{
         camera.position.y -= dt * 50.0f;
 
         defaultShader.use();
+        //upload texture to shader
+        defaultShader.uploadTexture("TEX_SAMPLER", 0);
+        glActiveTexture(GL_TEXTURE0); //activates texture at slot 0
+        testTexture.bind(); //binds texture to the slot
+
         defaultShader.uploadMat4("uProjection", camera.getProjectionMatrix());
         defaultShader.uploadMat4("uView", camera.getViewMatrix());
         defaultShader.uploadFloat("uTime", Time.getTime()); //allows us to do time-based animations

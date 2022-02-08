@@ -51,8 +51,8 @@ public class Texture {
         ByteBuffer image = stbi_load(filepath, width, height, channels, 0); //loads image and stores data
 
         if (image != null){
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width.get(0), height.get(0), 0,
-                    GL_RGBA, GL_UNSIGNED_BYTE, image); //uploads image to the GPU
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width.get(0), height.get(0), 0,
+                    GL_RGB, GL_UNSIGNED_BYTE, image); //uploads image to the GPU
         } else{
             assert false : "Error: (Texture) Could not load image '" + filepath + "'";
         }
