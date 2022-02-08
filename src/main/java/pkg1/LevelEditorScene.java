@@ -1,5 +1,6 @@
 package pkg1;
 
+import components.SpriteRenderer;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import renderer.Shader;
@@ -60,6 +61,8 @@ public class LevelEditorScene extends Scene{
     private Shader defaultShader;
     private Texture testTexture; //for demo purposes
 
+    GameObject testObj; //for testing
+
     public LevelEditorScene(){
         defaultShader = new Shader("assets/shaders/default.glsl");
         defaultShader.compile();
@@ -67,6 +70,11 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void init(){
+        System.out.println("Creating 'test object'");
+        this.testObj = new GameObject("test object");
+        this.testObj.addComponent(new SpriteRenderer());
+        this.addGameObject(this.testObj);
+
         this.camera = new Camera(new Vector2f()); //setting up camera at 0, 0
         defaultShader = new Shader("assets/shaders/default.glsl");
         defaultShader.compile();
