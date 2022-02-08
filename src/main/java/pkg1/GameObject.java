@@ -35,6 +35,17 @@ public class GameObject {
     }
     public void addComponent(Component c){
         this.components.add(c);
-        c.gameObject = this;
+        c.gameObject = this; //assigns parent of the component
+    }
+
+    public void update(float dt){
+        for (int i = 0; i < components.size(); i ++){
+            components.get(i).update(dt);
+        }
+    }
+    public void start(){
+        for (int i = 0; i < components.size(); i++){
+            components.get(i).start();
+        }
     }
 }
