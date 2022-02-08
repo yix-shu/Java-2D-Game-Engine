@@ -38,10 +38,10 @@ public class LevelEditorScene extends Scene{
     private int vertexID, fragmentID, shaderProgram;
     private float[] vertexArray = {
             //vertices or position             //color                       //UV Coordinates
-            100.5f, 0.5f, 0.0f,                 1.0f, 0.0f, 0.0f, 1.0f,      1, 0,//Bottom right
-            0.5f, 100.5f, 0.0f,                 0.0f, 1.0f, 0.0f, 1.0f,      0, 1,//Top left
-            100.5f, 100.5f, 0.0f,               0.0f, 0.0f, 1.0f, 1.0f,      1, 1,//Top right
-            0.5f, 0.5f, 0.0f,                   1.0f, 1.0f, 0.0f, 1.0f,      0, 0 //Bottom right
+            100.5f, 0.5f, 0.0f,                 1.0f, 0.0f, 0.0f, 1.0f,      1, 1,//Bottom right
+            0.5f, 100.5f, 0.0f,                 0.0f, 1.0f, 0.0f, 1.0f,      0, 0,//Top left
+            100.5f, 100.5f, 0.0f,               0.0f, 0.0f, 1.0f, 1.0f,      1, 0,//Top right
+            0.5f, 0.5f, 0.0f,                   1.0f, 1.0f, 0.0f, 1.0f,      0, 1 //Bottom right
     };
 
     //In counter-clockwise order
