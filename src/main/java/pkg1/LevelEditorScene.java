@@ -1,5 +1,6 @@
 package pkg1;
 
+import components.FontRenderer;
 import components.SpriteRenderer;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
@@ -74,6 +75,7 @@ public class LevelEditorScene extends Scene{
         System.out.println("Creating 'test object'");
         this.testObj = new GameObject("test object");
         this.testObj.addComponent(new SpriteRenderer());
+        this.testObj.addComponent( new FontRenderer());
         this.addGameObject(this.testObj);
 
         this.camera = new Camera(new Vector2f()); //setting up camera at 0, 0
