@@ -13,16 +13,28 @@ public abstract class Scene {
 
     }
     public void init(){
-
+    /*
+    Initializing all the objects in the scene and the scene itself.
+     */
     }
     public void start(){
+        /*
+        Starting the scene when the scene is initialized and ready
+        and starting all the game objects
+         */
         for (GameObject go: gameObjects){
             go.start();
         }
     }
     public void addGameObject(GameObject go){
-        if (!isRunning){
+        /*
+        Adding game objects to the scene.
+         */
+        if (!isRunning){ //checks if it is not running
             gameObjects.add(go);
+        } else{ //checks if the scene is running and runs newly added game object
+            gameObjects.add(go);
+            go.start();
         }
     }
 
