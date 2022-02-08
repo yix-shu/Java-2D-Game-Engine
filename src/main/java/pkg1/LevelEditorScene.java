@@ -70,7 +70,7 @@ public class LevelEditorScene extends Scene{
         this.camera = new Camera(new Vector2f()); //setting up camera at 0, 0
         defaultShader = new Shader("assets/shaders/default.glsl");
         defaultShader.compile();
-        this.testTexture = new Texture("assets/images/testImage.jpg");
+        this.testTexture = new Texture("assets/images/testImage2.jpg");
         //===========================================================
         //Generate VAO, VBO, and EBO buffer objects, and send to GPU
         //===========================================================
