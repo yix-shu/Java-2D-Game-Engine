@@ -16,7 +16,7 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class LevelEditorScene extends Scene{
-
+    /*
     private String vertexShaderSrc = "#version 330 core\n" +
             "layout (location=0) in vec3 aPos;\n" +
             "layout (location=1) in vec4 aColor;\n" +
@@ -55,6 +55,7 @@ public class LevelEditorScene extends Scene{
 
                      x           x
              */
+    /*
             2, 1, 0, //Top right triangle
             0, 1, 3  //Bottom left triangle
     };
@@ -64,14 +65,19 @@ public class LevelEditorScene extends Scene{
 
     GameObject testObj; //for testing
     private boolean firstTime = false;
+    */
 
     public LevelEditorScene(){
+        /*
         defaultShader = new Shader("assets/shaders/default.glsl");
         defaultShader.compile();
+         */
+
     }
 
     @Override
     public void init(){
+        /*
         System.out.println("Creating 'test object'");
         this.testObj = new GameObject("test object");
         this.testObj.addComponent(new SpriteRenderer());
@@ -125,10 +131,13 @@ public class LevelEditorScene extends Scene{
         //UV Coordinates
         glVertexAttribPointer(2, uvSize, GL_FLOAT, false, vertexSizeBytes, (positionSize + colorSize)*Float.BYTES);
         glEnableVertexAttribArray(2);
+        */
+
     }
 
     @Override
     public void update(float dt) {
+        /*
         //to test camera movement
         camera.position.x -= dt * 50.0f;
         camera.position.y -= dt * 50.0f;
@@ -166,7 +175,7 @@ public class LevelEditorScene extends Scene{
             this.addGameObject(go);
             firstTime = true;
         }
-
+        */
         for (GameObject go: this.gameObjects){
             go.update(dt);
         }
