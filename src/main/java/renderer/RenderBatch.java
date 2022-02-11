@@ -1,10 +1,10 @@
 package renderer;
 
 import components.SpriteRenderer;
+import pkg1.Window;
 
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
+import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
@@ -73,6 +73,22 @@ public class RenderBatch {
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices); //buffers data into vbo starting from offset
 
+        //Use shader
+        shader.use();
+        shader.uploadMat4("uProjection", Window.getScene().camera().getProjectionMatrix());
+        shader.uploadMat4("uView", Window.getScene().camera().getViewMatrix());
+
+        glBindVertexArray(vaoID);
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
+
+        glDrawElements(GL_TRIANGLES, this.numSprites * 6, GL_UNSIGNED_INT, 0);
+
+        //disables and detaches everything
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+        glBindVertexArray(0);
+        shader.detach();
     }
     private int[] generateIndices() {
         // 6 indices per quad (3 per triangle)
