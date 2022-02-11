@@ -1,9 +1,13 @@
 package pkg1;
 
+import renderer.Renderer;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Scene {
+
+    private Renderer renderer;
     protected Camera camera;
     private boolean isRunning = false;
     protected List<GameObject> gameObjects = new ArrayList<>();
@@ -24,6 +28,7 @@ public abstract class Scene {
          */
         for (GameObject go: gameObjects){
             go.start();
+            this.renderer.add(go);
         }
         isRunning = true;
     }
