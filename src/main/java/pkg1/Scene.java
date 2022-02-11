@@ -41,6 +41,7 @@ public abstract class Scene {
         } else{ //checks if the scene is running and runs newly added game object
             gameObjects.add(go);
             go.start();
+            this.renderer.add(go);
         }
     }
 
