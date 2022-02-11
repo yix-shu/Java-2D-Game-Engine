@@ -13,12 +13,13 @@ public class SpriteRenderer extends Component {
     @Override
     public void update(float dt) {
 
-
     }
 
     @Override
     public void start(){
 
-        }
+    }
+    public Vector4f getColor() {
+        return this.color;
     }
 }
