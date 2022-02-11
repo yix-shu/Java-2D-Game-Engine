@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class Scene {
 
-    private Renderer renderer;
+    protected Renderer renderer;
     protected Camera camera;
     private boolean isRunning = false;
     protected List<GameObject> gameObjects = new ArrayList<>();
