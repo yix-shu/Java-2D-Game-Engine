@@ -3,6 +3,7 @@ package pkg1;
 import components.SpriteRenderer;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import util.AssetPool;
 
 import java.util.Objects;
 
@@ -163,6 +164,10 @@ public class LevelEditorScene extends Scene{
                 this.addGameObject(go);
             }
         }
+        loadResources();
+    }
+    private void loadResources(){
+        AssetPool.getShader("assets/shaders/default.glsl");
     }
 
     @Override
