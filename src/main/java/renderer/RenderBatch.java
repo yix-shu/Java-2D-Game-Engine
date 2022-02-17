@@ -36,6 +36,7 @@ public class RenderBatch {
     private int numSprites;
     private boolean hasRoom;
     private float[] vertices;
+    private int[] texSlots = {0, 1, 2, 3, 4, 5, 6, 7};
 
 
     private List<Texture> textures;
