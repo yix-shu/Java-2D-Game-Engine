@@ -40,6 +40,7 @@ void main(){
     if (fTexId > 0){
         int id = int(fTexId);
         color = fColor*texture(uTextures[id], fTexCoords);
+
     } else{
         color = fColor;
     }
