@@ -115,6 +115,11 @@ public class RenderBatch {
         shader.use();
         shader.uploadMat4("uProjection", Window.getScene().camera().getProjectionMatrix());
         shader.uploadMat4("uView", Window.getScene().camera().getViewMatrix());
+        for(int i = 0; i <textures.size(); i++){ //goes through all textures
+            glActiveTexture(GL_TEXTURE0 + i); //activates texture in appropriate slot
+            textures.get(i).bind(); //binds texture to slot
+        }
+        shader.uploadIntArray("uTextures", texSlots);
 
         glBindVertexArray(vaoID);
         glEnableVertexAttribArray(0);
