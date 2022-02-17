@@ -143,7 +143,7 @@ public class LevelEditorScene extends Scene{
 
         this.camera = new Camera(new Vector2f());
 
-        int xOffset = 10;
+        /*int xOffset = 10;
         int yOffset = 10;
 
         float totalWidth = (float)(600 - xOffset * 2); //width of scene
@@ -163,7 +163,14 @@ public class LevelEditorScene extends Scene{
 
                 this.addGameObject(go);
             }
-        }
+        }*/
+        GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
+        obj1.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage.jpg")));
+        this.addGameObject(obj1);
+        GameObject obj2 = new GameObject("Object 1", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)));
+        obj2.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage2.jpg")));
+        this.addGameObject(obj2);
+
         loadResources();
     }
     private void loadResources(){
