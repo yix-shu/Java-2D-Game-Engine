@@ -37,6 +37,10 @@ out vec4 color;
 void main(){
     //float noise = fract(sin(dot(fColor.xy, vec2(12.9898, 78.233)))*43758.5453);
     //color = fColor * noise; //creates a noise block for texture
-    int id = int(fTexId);
-    color = fColor*texture(uTextures[id], fTexCoords);
+    if (fTexId > 0){
+        int id = int(fTexId);
+        color = fColor*texture(uTextures[id], fTexCoords);
+    } else{
+        color = fColor;
+    }
 }
