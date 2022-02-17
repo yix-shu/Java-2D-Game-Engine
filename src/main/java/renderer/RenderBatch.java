@@ -1,6 +1,7 @@
 package renderer;
 
 import components.SpriteRenderer;
+import org.joml.Vector2f;
 import org.joml.Vector4f;
 import pkg1.Window;
 import util.AssetPool;
@@ -136,6 +137,7 @@ public class RenderBatch {
         int offset = index * 4 * VERTEX_SIZE;
         //float float        float float float float float
         Vector4f color = sprite.getColor();
+        Vector2f[] texCoords = sprite.getTexCoords();
 
         int texId = 0;
         if (sprite.getTexture()!= null){
@@ -176,9 +178,11 @@ public class RenderBatch {
             vertices[offset + 5] = color.w;
 
             //Load texture coords
-
+            vertices[offset + 6] = texCoords[i].x;
+            vertices[offset + 7] = texCoords[i].y;
 
             //Load texture id
+            vertices[offset + 8] = texId;
 
             offset += VERTEX_SIZE;
         }
