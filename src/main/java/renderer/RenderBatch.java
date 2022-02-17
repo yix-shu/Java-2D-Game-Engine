@@ -132,6 +132,11 @@ public class RenderBatch {
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glBindVertexArray(0);
+
+        for(int i = 0; i <textures.size(); i++){ //goes through all textures
+            textures.get(i).unbind(); //unbinds texture to slot
+        }
+
         shader.detach();
     }
 
