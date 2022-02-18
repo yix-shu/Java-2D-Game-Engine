@@ -21,4 +21,11 @@ public class Sprite {
         this.texture = tex;
         this.texCoords = texCoords;
     }
+
+    public Texture getTexture(){
+        return this.texture;
+    }
+    public Vector2f[] getTexCoords(){
+        return this.texCoords;
+    }
 }
