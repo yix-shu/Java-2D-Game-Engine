@@ -10,6 +10,7 @@ public class SpriteRenderer extends Component {
     private Vector4f color;
     private Vector2f[] texCoords;
     private Texture texture;
+    private Sprite sprite;
 
     public SpriteRenderer(Vector4f color) {
         this.color = color;
