@@ -2,6 +2,7 @@ package pkg1;
 
 import components.Sprite;
 import components.SpriteRenderer;
+import components.Spritesheet;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import util.AssetPool;
@@ -142,7 +143,9 @@ public class LevelEditorScene extends Scene{
         glEnableVertexAttribArray(2);
         */
 
+        loadResources();
         this.camera = new Camera(new Vector2f());
+        Spritesheet sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
 
         /*int xOffset = 10;
         int yOffset = 10;
@@ -166,16 +169,16 @@ public class LevelEditorScene extends Scene{
             }
         }*/
         GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
-        obj1.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/testImage.jpg"))));
-        this.addGameObject(obj1);
+        obj1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
         GameObject obj2 = new GameObject("Object 1", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)));
-        obj2.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/testImage2.jpg"))));
+        obj2.addComponent(new SpriteRenderer(sprites.getSprite(10)));
         this.addGameObject(obj2);
 
-        loadResources();
+
     }
     private void loadResources(){
         AssetPool.getShader("assets/shaders/default.glsl");
+        AssetPool.addSpriteSheet("assets/images/spritesheet.png", new Spritesheet(AssetPool.getTexture("assets/images/spritesheet.png"), 16, 16, 26, 0));
     }
 
     @Override

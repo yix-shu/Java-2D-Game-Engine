@@ -38,7 +38,7 @@ public class AssetPool {
     public static void addSpriteSheet(String resourceName, Spritesheet spritesheet){
         File file = new File(resourceName);
         if (!AssetPool.spritesheets.containsKey(file.getAbsolutePath())){
-            AssetPool.addSpriteSheet(file.getAbsolutePath(), spritesheet);
+            AssetPool.spritesheets.put(file.getAbsolutePath(), spritesheet);
         }
     }
     public static Spritesheet getSpritesheet(String resourceName){
