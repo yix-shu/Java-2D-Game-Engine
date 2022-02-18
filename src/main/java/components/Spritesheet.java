@@ -1,5 +1,6 @@
 package components;
 
+import org.joml.Vector2f;
 import renderer.Texture;
 
 import java.util.ArrayList;
@@ -16,12 +17,29 @@ public class Spritesheet {
         int currentY = texture.getHeight() - spriteHeight;
 
         for (int i = 0; i < numSprites; i++){
-            float topY = 0;
-            float rightX = 0;
-            float leftX = 0;
-            float bottomY = 0;
+            float topY = (currentY + spriteHeight)/(float)texture.getHeight();
+            float rightX = (currentX + spriteHeight)/(float)texture.getWidth();
+            float leftX = currentX/(float)texture.getWidth();
+            float bottomY = currentY/(float)texture.getHeight();
+
+            Vector2f[] texCoords = {
+                    new Vector2f(rightX, topY),
+                    new Vector2f(rightX, bottomY),
+                    new Vector2f(leftX, bottomY),
+                    new Vector2f(leftX, topY),
+            };
+            Sprite sprite = new Sprite(this.texture, texCoords);
+            this.sprites.add(sprite);
+
+            currentX += spriteWidth + spacing;
+            if (currentX >= texture.getWidth()){
+                currentX = 0;
+                currentY -= spriteHeight + spacing;
+            }
         }
     }
-
+    public Sprite getSprite(int index){
+        return this.sprites.get(index);
+    }
 
 }
