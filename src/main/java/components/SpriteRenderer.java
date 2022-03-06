@@ -30,7 +30,7 @@ public class SpriteRenderer extends Component {
 
     @Override
     public void start(){
-
+        this.lastTransform = gameObject.transform.copy();
     }
     public Vector4f getColor() {
         return this.color;
