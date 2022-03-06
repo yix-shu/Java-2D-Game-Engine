@@ -10,6 +10,7 @@ public class SpriteRenderer extends Component {
 
     private Vector4f color;
     private Sprite sprite;
+    private boolean isDirty = false;
 
     private Transform lastTransform;
 
@@ -25,7 +26,10 @@ public class SpriteRenderer extends Component {
 
     @Override
     public void update(float dt) {
-
+        if (!this.lastTransform.equals(this.gameObject.transform)){
+            this.gameObject.transform.copy(this.lastTransform);
+            isDirty = true;
+        }
     }
 
     @Override
@@ -45,9 +49,13 @@ public class SpriteRenderer extends Component {
 
     public void setSprite(Sprite sprite){
         this.sprite = sprite;
+        this.isDirty = true;
     }
 
     public void setColor(Vector4f color){
-        this.color.set(color);
+        if (!this.color.equals(color)){
+            this.color.set(color);
+            this.isDirty = true;
+        }
     }
 }
