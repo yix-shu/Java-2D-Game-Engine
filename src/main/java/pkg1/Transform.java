@@ -24,4 +24,14 @@ public class Transform {
         this.scale = scale;
 
     }
+
+    public Transform copy(){
+        Transform t = new Transform(new Vector2f(this.position), new Vector2f(this.scale));
+        return t;
+    }
+
+    public void copy(Transform c){
+        c.position.set(this.position);
+        c.scale.set(this.scale);
+    }
 }
