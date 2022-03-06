@@ -108,6 +108,11 @@ public class RenderBatch {
     }
 
     public void render(){
+        for (int i = 0; i < sprites.length; i ++){
+            SpriteRenderer spr = sprites[i];
+            if spr.isDirty()
+        }
+
         //For now, rebuffer all data every frame
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices); //buffers data into vbo starting from offset
