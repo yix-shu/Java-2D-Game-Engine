@@ -109,7 +109,7 @@ public class RenderBatch {
 
     public void render(){
         boolean rebufferData = false;
-        for (int i = 0; i < sprites.length; i ++){
+        for (int i = 0; i < numSprites; i ++){
             SpriteRenderer spr = sprites[i];
             if (spr.isDirty()){
                 loadVertexProperties(i);

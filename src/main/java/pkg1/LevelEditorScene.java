@@ -77,6 +77,7 @@ public class LevelEditorScene extends Scene{
     private boolean firstTime = false;
     */
 
+    private GameObject obj1;
     public LevelEditorScene(){
         /*
         defaultShader = new Shader("assets/shaders/default.glsl");
@@ -168,7 +169,7 @@ public class LevelEditorScene extends Scene{
                 this.addGameObject(go);
             }
         }*/
-        GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
+        obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
         obj1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
         this.addGameObject(obj1);
         GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)));
@@ -223,6 +224,7 @@ public class LevelEditorScene extends Scene{
             firstTime = true;
         }
         */
+        obj1.transform.position.x += 10 * dt;
         for (GameObject go: this.gameObjects){
             go.update(dt);
         }
