@@ -15,7 +15,7 @@ public class Window {
     private int width, height;
     private String title;
     private static Window window;
-    public float r, g, b;
+    public float r, g, b, a;
     private long glfwWindow; //this is a number that is a memory address to our window
 
     private static Scene currentScene;
@@ -27,6 +27,7 @@ public class Window {
         this.r = 1.0f;
         this.b = 1.0f;
         this.g = 1.0f;
+        this.a = 1.0f;
     }
     public static void changeScene(int newScene){
         switch(newScene){
@@ -105,6 +106,11 @@ public class Window {
         glfwShowWindow(glfwWindow);
 
         GL.createCapabilities(); //makes sure we can use the bindings
+
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
         Window.changeScene(0);
     }
     public void loop(){
