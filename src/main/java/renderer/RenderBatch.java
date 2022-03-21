@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class RenderBatch {
+public class RenderBatch implements Comparable<RenderBatch>{
     // Vertex
     // ======
     // Pos                        Color                           tex coords     tex id
@@ -245,4 +245,9 @@ public class RenderBatch {
         return this.textures.contains(tex);
     }
     public int zIndex(){ return this.zIndex; }
+
+    @Override
+    public int compareTo(RenderBatch o) {
+        return Integer.compare(this.zIndex, o.zIndex);
+    }
 }

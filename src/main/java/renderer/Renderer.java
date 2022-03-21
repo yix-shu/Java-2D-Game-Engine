@@ -4,6 +4,7 @@ import components.SpriteRenderer;
 import pkg1.GameObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Renderer {
@@ -37,6 +38,7 @@ public class Renderer {
             newBatch.start();
             batches.add(newBatch);
             newBatch.addSprite(sprite);
+            Collections.sort(batches); //sorts batches every time they are added.
         }
     }
     public void render(){
