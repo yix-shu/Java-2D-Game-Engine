@@ -113,7 +113,7 @@ public class Window {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         this.imgui = new ImGuiLayer(glfwWindow);
-        this.imgui.init();
+        this.imgui.initImGui();
 
         Window.changeScene(0);
     }
@@ -139,10 +139,25 @@ public class Window {
                 System.out.println("Space key has been pressed");
             }
             */
+
+            this.imgui.update(dt);
             glfwSwapBuffers(glfwWindow);
             endTime = (float) glfwGetTime();
             dt = endTime - beginTime;
             beginTime = endTime;
         }
+    }
+    public static int getWidth(){
+        return get().width;
+    }
+    public static int getHeight(){
+        return get().height;
+    }
+    public static void setWidth(int newWidth){
+        get().width = newWidth;
+    }
+
+    public static void setHeight(int newHeight){
+        get().height = newHeight;
     }
 }
