@@ -3,9 +3,11 @@ package pkg1;
 import imgui.ImGui;
 import imgui.app.Application;
 import imgui.app.Configuration;
+import imgui.flag.ImGuiConfigFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.lwjgl.glfw.Callbacks;
+import org.lwjgl.glfw.GLFW;
 
 import javax.security.auth.callback.Callback;
 
@@ -19,11 +21,12 @@ public class ImGuiLayer{
     private String glslVersion = null;
     private long windowPtr;
 
+    private boolean showText = false;
+
     public ImGuiLayer(long windowPtr) {
         this.windowPtr = windowPtr;
     }
     public void init(){
-        initWindow();
         initImGui();
         imGuiGlfw.init(windowPtr, true);
         imGuiGl3.init(glslVersion);
@@ -37,10 +40,6 @@ public class ImGuiLayer{
         glfwDestroyWindow(windowPtr);
         glfwTerminate();
     }
-
-    private void initWindow(){
-        //already defined in Window class
-    }
     private void initImGui(){
         ImGui.createContext();
     }
@@ -51,8 +50,36 @@ public class ImGuiLayer{
 
             imGuiGlfw.newFrame();
             ImGui.newFrame();
-            ImGui.render();
 
+            //imguilayer stuff begins
+            ImGui.begin("Nice!");
+
+            if (ImGui.button("I am a button")) {
+                showText = true;
+            }
+            if (showText) {
+                ImGui.text("You clicked me!");
+                ImGui.sameLine();
+                if (ImGui.button("Stop showing text")) {
+                    showText = false;
+                }
+            }
+
+
+            ImGui.render();
+            imGuiGl3.renderDrawData(ImGui.getDrawData());
+
+            //endframe
+            if (ImGui.getIO().hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
+                final long backupWindowPtr = org.lwjgl.glfw.GLFW.glfwGetCurrentContext();
+                ImGui.updatePlatformWindows();
+                ImGui.renderPlatformWindowsDefault();
+                GLFW.glfwMakeContextCurrent(backupWindowPtr);
+            }
+
+            GLFW.glfwSwapBuffers(windowPtr);
+            GLFW.glfwPollEvents();
+        }
         }
     }
 }
