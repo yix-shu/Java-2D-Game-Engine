@@ -17,6 +17,7 @@ public class Window {
     private static Window window;
     public float r, g, b, a;
     private long glfwWindow; //this is a number that is a memory address to our window
+    private ImGuiLayer imgui;
 
     private static Scene currentScene;
 
@@ -99,6 +100,7 @@ public class Window {
         //Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
 
+
         //Enable v-sync (no restriction), which is buffer swapping
         glfwSwapInterval(1); //swaps every single frame, no wait time
 
@@ -110,6 +112,8 @@ public class Window {
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        this.imgui = new ImGuiLayer(glfwWindow);
+        this.imgui.init();
 
         Window.changeScene(0);
     }
