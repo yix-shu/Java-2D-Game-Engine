@@ -112,8 +112,9 @@ public class Window {
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         this.imgui = new ImGuiLayer(glfwWindow);
-        this.imgui.initImGui();
+        this.imgui.init();
 
         Window.changeScene(0);
     }
@@ -142,6 +143,7 @@ public class Window {
 
             this.imgui.update(dt);
             glfwSwapBuffers(glfwWindow);
+
             endTime = (float) glfwGetTime();
             dt = endTime - beginTime;
             beginTime = endTime;
