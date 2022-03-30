@@ -8,6 +8,7 @@ import imgui.callback.ImStrConsumer;
 import imgui.callback.ImStrSupplier;
 import imgui.flag.ImGuiBackendFlags;
 import imgui.flag.ImGuiConfigFlags;
+import imgui.flag.ImGuiKey;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
@@ -45,17 +46,48 @@ public class ImGuiLayer{
         glfwTerminate();
     }
     public void initImGui(){
+        // IMPORTANT!!
+        // This line is critical for Dear ImGui to work.
         ImGui.createContext();
 
+        // ------------------------------------------------------------
+        // Initialize ImGuiIO config
         final ImGuiIO io = ImGui.getIO();
 
-        io.setIniFilename("imgui.ini"); // To save .ini file
-        io.setConfigFlags(ImGuiConfigFlags.DockingEnable);
-        io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors);
+        io.setIniFilename(null); // We don't want to save .ini file
+        io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard); // Navigation with keyboard
+        io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors); // Mouse cursors to display while resizing windows etc.
         io.setBackendPlatformName("imgui_java_impl_glfw");
 
+        // ------------------------------------------------------------
+        // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
+        final int[] keyMap = new int[ImGuiKey.COUNT];
+        keyMap[ImGuiKey.Tab] = GLFW_KEY_TAB;
+        keyMap[ImGuiKey.LeftArrow] = GLFW_KEY_LEFT;
+        keyMap[ImGuiKey.RightArrow] = GLFW_KEY_RIGHT;
+        keyMap[ImGuiKey.UpArrow] = GLFW_KEY_UP;
+        keyMap[ImGuiKey.DownArrow] = GLFW_KEY_DOWN;
+        keyMap[ImGuiKey.PageUp] = GLFW_KEY_PAGE_UP;
+        keyMap[ImGuiKey.PageDown] = GLFW_KEY_PAGE_DOWN;
+        keyMap[ImGuiKey.Home] = GLFW_KEY_HOME;
+        keyMap[ImGuiKey.End] = GLFW_KEY_END;
+        keyMap[ImGuiKey.Insert] = GLFW_KEY_INSERT;
+        keyMap[ImGuiKey.Delete] = GLFW_KEY_DELETE;
+        keyMap[ImGuiKey.Backspace] = GLFW_KEY_BACKSPACE;
+        keyMap[ImGuiKey.Space] = GLFW_KEY_SPACE;
+        keyMap[ImGuiKey.Enter] = GLFW_KEY_ENTER;
+        keyMap[ImGuiKey.Escape] = GLFW_KEY_ESCAPE;
+        keyMap[ImGuiKey.KeyPadEnter] = GLFW_KEY_KP_ENTER;
+        keyMap[ImGuiKey.A] = GLFW_KEY_A;
+        keyMap[ImGuiKey.C] = GLFW_KEY_C;
+        keyMap[ImGuiKey.V] = GLFW_KEY_V;
+        keyMap[ImGuiKey.X] = GLFW_KEY_X;
+        keyMap[ImGuiKey.Y] = GLFW_KEY_Y;
+        keyMap[ImGuiKey.Z] = GLFW_KEY_Z;
+        io.setKeyMap(keyMap);
 
-
+        // ------------------------------------------------------------
+        // Mouse cursors mapping
         mouseCursors[ImGuiMouseCursor.Arrow] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
         mouseCursors[ImGuiMouseCursor.TextInput] = glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
         mouseCursors[ImGuiMouseCursor.ResizeAll] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
@@ -80,10 +112,6 @@ public class ImGuiLayer{
             io.setKeyShift(io.getKeysDown(GLFW_KEY_LEFT_SHIFT) || io.getKeysDown(GLFW_KEY_RIGHT_SHIFT));
             io.setKeyAlt(io.getKeysDown(GLFW_KEY_LEFT_ALT) || io.getKeysDown(GLFW_KEY_RIGHT_ALT));
             io.setKeySuper(io.getKeysDown(GLFW_KEY_LEFT_SUPER) || io.getKeysDown(GLFW_KEY_RIGHT_SUPER));
-
-            if (!io.getWantCaptureKeyboard()) {
-                KeyListener.keyCallback(w, key, scancode, action, mods);
-            }
         });
 
         glfwSetCharCallback(windowPtr, (w, c) -> {
@@ -105,10 +133,6 @@ public class ImGuiLayer{
 
             if (!io.getWantCaptureMouse() && mouseDown[1]) {
                 ImGui.setWindowFocus(null);
-            }
-
-            if (!io.getWantCaptureMouse() && mouseDown[1]) {
-                MouseListener.mouseButtonCallback(w, button, action, mods);
             }
         });
 
@@ -139,22 +163,41 @@ public class ImGuiLayer{
         // ------------------------------------------------------------
         // Fonts configuration
         // Read: https://raw.githubusercontent.com/ocornut/imgui/master/docs/FONTS.txt
-        /*
-        if (new File("assets/fonts/segoeui.ttf").isFile()) {
-            final ImFontAtlas fontAtlas = io.getFonts();
-            final ImFontConfig fontConfig = new ImFontConfig(); // Natively allocated object, should be explicitly destroyed
 
-            // Glyphs could be added per-font as well as per config used globally like here
-            fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesDefault());
-
-            // Fonts merge example
-            fontConfig.setPixelSnapH(true);
-            fontAtlas.addFontFromFileTTF("assets/fonts/segoeui.ttf", 20, fontConfig);
-            fontConfig.destroy(); // After all fonts were added we don't need this config more
-        }
-
-         */
-
+//        final ImFontAtlas fontAtlas = io.getFonts();
+//        final ImFontConfig fontConfig = new ImFontConfig(); // Natively allocated object, should be explicitly destroyed
+//
+//        // Glyphs could be added per-font as well as per config used globally like here
+//        fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesCyrillic());
+//
+//        // Add a default font, which is 'ProggyClean.ttf, 13px'
+//        fontAtlas.addFontDefault();
+//
+//        // Fonts merge example
+//        fontConfig.setMergeMode(true); // When enabled, all fonts added with this config would be merged with the previously added font
+//        fontConfig.setPixelSnapH(true);
+//
+//        fontAtlas.addFontFromMemoryTTF(loadFromResources("basis33.ttf"), 16, fontConfig);
+//
+//        fontConfig.setMergeMode(false);
+//        fontConfig.setPixelSnapH(false);
+//
+//        // Fonts from file/memory example
+//        // We can add new fonts from the file system
+//        fontAtlas.addFontFromFileTTF("src/test/resources/Righteous-Regular.ttf", 14, fontConfig);
+//        fontAtlas.addFontFromFileTTF("src/test/resources/Righteous-Regular.ttf", 16, fontConfig);
+//
+//        // Or directly from the memory
+//        fontConfig.setName("Roboto-Regular.ttf, 14px"); // This name will be displayed in Style Editor
+//        fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 14, fontConfig);
+//        fontConfig.setName("Roboto-Regular.ttf, 16px"); // We can apply a new config value every time we add a new font
+//        fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 16, fontConfig);
+//
+//        fontConfig.destroy(); // After all fonts were added we don't need this config more
+//
+//        // ------------------------------------------------------------
+//        // Use freetype instead of stb_truetype to build a fonts texture
+//        ImGuiFreeType.buildFontAtlas(fontAtlas, ImGuiFreeType.RasterizerFlags.LightHinting);
 
         // Method initializes LWJGL3 renderer.
         // This method SHOULD be called after you've initialized your ImGui configuration (fonts and so on).
@@ -165,20 +208,10 @@ public class ImGuiLayer{
     public void update(float dt) {
         startFrame(dt);
 
-        // Any Dear ImGui code SHOULD go between ImGui.newFrame()/ImGui.render() methods
+        // Any Dear ImGui SHOULD go between newFrame and render methods
+        ImGui.newFrame();
         ImGui.showDemoWindow();
-        ImGui.begin("Nice!");
-
-        if (ImGui.button("I am a button")) {
-            showText = true;
-        }
-        if (showText) {
-            ImGui.text("You clicked me!");
-            ImGui.sameLine();
-            if (ImGui.button("Stop showing text")) {
-                showText = false;
-            }
-        }
+        ImGui.end();
         ImGui.render();
 
         endFrame();
@@ -209,43 +242,5 @@ public class ImGuiLayer{
         // After Dear ImGui prepared a draw data, we use it in the LWJGL3 renderer.
         // At that moment ImGui will be rendered to the current OpenGL context.
         imGuiGl3.renderDrawData(ImGui.getDrawData());
-    }
-    public void run(){
-        while (!glfwWindowShouldClose(windowPtr)){
-            glClearColor(0.1f, 0.09f, 0.1f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
-
-            imGuiGlfw.newFrame();
-            ImGui.newFrame();
-
-            //imguilayer stuff begins
-            ImGui.begin("Nice!");
-
-            if (ImGui.button("I am a button")) {
-                showText = true;
-            }
-            if (showText) {
-                ImGui.text("You clicked me!");
-                ImGui.sameLine();
-                if (ImGui.button("Stop showing text")) {
-                    showText = false;
-                }
-            }
-
-
-            ImGui.render();
-            imGuiGl3.renderDrawData(ImGui.getDrawData());
-
-            //endframe
-            if (ImGui.getIO().hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
-                final long backupWindowPtr = org.lwjgl.glfw.GLFW.glfwGetCurrentContext();
-                ImGui.updatePlatformWindows();
-                ImGui.renderPlatformWindowsDefault();
-                GLFW.glfwMakeContextCurrent(backupWindowPtr);
-            }
-
-            GLFW.glfwSwapBuffers(windowPtr);
-            GLFW.glfwPollEvents();
-        }
     }
 }
