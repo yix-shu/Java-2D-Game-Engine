@@ -49,7 +49,7 @@ public class ImGuiLayer{
         // Initialize ImGuiIO config
         final ImGuiIO io = ImGui.getIO();
 
-        io.setIniFilename(null); // We don't want to save .ini file
+        io.setIniFilename("imgui.ini"); // Saves a .ini file serializing the data of our imgui
         io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard); // Navigation with keyboard
         io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors); // Mouse cursors to display while resizing windows etc.
         io.setBackendPlatformName("imgui_java_impl_glfw");

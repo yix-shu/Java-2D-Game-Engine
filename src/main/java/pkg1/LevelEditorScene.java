@@ -184,7 +184,7 @@ public class LevelEditorScene extends Scene{
                 new Sprite(AssetPool.getTexture("assets/images/blendImage2.png"))
         ));
         this.addGameObject(obj2);
-
+        this.activeGO = obj1;
 
     }
     private void loadResources(){
