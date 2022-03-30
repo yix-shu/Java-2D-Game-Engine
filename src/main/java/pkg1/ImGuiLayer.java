@@ -39,11 +39,7 @@ public class ImGuiLayer{
 
     public void destroy(){
         imGuiGl3.dispose();
-        imGuiGlfw.dispose();
         ImGui.destroyContext();
-        Callbacks.glfwFreeCallbacks(windowPtr);
-        glfwDestroyWindow(windowPtr);
-        glfwTerminate();
     }
     public void initImGui(){
         // IMPORTANT!!
@@ -208,10 +204,9 @@ public class ImGuiLayer{
     public void update(float dt) {
         startFrame(dt);
 
-        // Any Dear ImGui SHOULD go between newFrame and render methods
+        // Any Dear ImGui code SHOULD go between ImGui.newFrame()/ImGui.render() methods
         ImGui.newFrame();
         ImGui.showDemoWindow();
-        ImGui.end();
         ImGui.render();
 
         endFrame();
