@@ -141,7 +141,7 @@ public class Window {
             }
             */
 
-            this.imgui.update(dt);
+            this.imgui.update(dt, currentScene);
             glfwSwapBuffers(glfwWindow);
 
             endTime = (float) glfwGetTime();
