@@ -24,11 +24,14 @@ Steps:
 
 */
 public class Texture {
-    private String filepath;
+    private String filepath = "";
     private int texID;
     private int height, width;
 
-    public Texture(String filepath){
+//    public Texture(String filepath){
+//
+//    }
+    public void init(String filepath){
         this.filepath = filepath;
 
         //Generate texture on GPU

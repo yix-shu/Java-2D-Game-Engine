@@ -30,7 +30,8 @@ public class AssetPool {
         if (textures.containsKey(file.getAbsolutePath())){ //checks if shader exists in asset pool
             return textures.get(file.getAbsolutePath());
         } else{
-            Texture texture = new Texture(resourceName);
+            Texture texture = new Texture();
+            texture.init(resourceName);
             AssetPool.textures.put(file.getAbsolutePath(),texture); //adds shader into asset pool
             return texture;
         }
