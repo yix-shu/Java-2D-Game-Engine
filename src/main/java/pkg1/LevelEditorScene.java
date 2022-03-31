@@ -153,6 +153,10 @@ public class LevelEditorScene extends Scene{
 
         loadResources();
         this.camera = new Camera(new Vector2f());
+
+        if (levelLoaded){
+            return;
+        }
         sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
 
         /*int xOffset = 10;
