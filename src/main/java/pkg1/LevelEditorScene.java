@@ -83,7 +83,6 @@ public class LevelEditorScene extends Scene{
     private GameObject obj1;
     SpriteRenderer obj1Sprite;
     private Spritesheet sprites;
-    String serialized;
 
     public LevelEditorScene(){
         /*
@@ -182,7 +181,7 @@ public class LevelEditorScene extends Scene{
         }*/
         obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), -1);
         obj1Sprite = new SpriteRenderer();
-        //obj1Sprite.setColor(new Vector4f(1, 0, 0, 1));
+        obj1Sprite.setColor(new Vector4f(1, 0, 0, 1));
         obj1.addComponent(obj1Sprite);
         this.addGameObject(obj1);
 
@@ -196,9 +195,6 @@ public class LevelEditorScene extends Scene{
 
         this.addGameObject(obj2);
         this.activeGO = obj1;
-
-
-
     }
     private void loadResources(){
         AssetPool.getShader("assets/shaders/default.glsl");

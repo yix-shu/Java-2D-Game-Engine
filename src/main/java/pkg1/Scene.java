@@ -20,7 +20,7 @@ public abstract class Scene {
     private boolean isRunning = false;
     protected List<GameObject> gameObjects = new ArrayList<>();
     protected  GameObject activeGO = null;
-    protected boolean levelLoaded = true;
+    protected boolean levelLoaded = false;
 
     public Scene(){
 
