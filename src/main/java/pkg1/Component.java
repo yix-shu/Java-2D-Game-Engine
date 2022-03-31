@@ -2,7 +2,7 @@ package pkg1;
 
 public abstract class Component {
 
-    public GameObject gameObject;
+    public transient GameObject gameObject = null;
     public void update(float dt){
 
     }
