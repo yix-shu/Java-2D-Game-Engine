@@ -175,23 +175,26 @@ public class LevelEditorScene extends Scene{
             }
         }*/
         obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), -1);
-        obj1.addComponent(new SpriteRenderer(
-                new Sprite(AssetPool.getTexture("assets/images/blendImage1.png"))
-        ));
+        SpriteRenderer obj1Sprite = new SpriteRenderer();
+        obj1Sprite.setColor(new Vector4f(1, 0, 0, 1));
+        obj1.addComponent(obj1Sprite);
         this.addGameObject(obj1);
 
 
         GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 2);
-        obj2.addComponent(new SpriteRenderer(
-                new Sprite(AssetPool.getTexture("assets/images/blendImage2.png"))
-        ));
+        SpriteRenderer obj2SpriteR = new SpriteRenderer();
+        Sprite obj2Sprite = new Sprite();
+        obj2Sprite.setTexture(AssetPool.getTexture("assets/images/blendImage2.png"));
+        obj2SpriteR.setSprite(obj2Sprite);
+        obj2.addComponent(obj2SpriteR);
+
         this.addGameObject(obj2);
         this.activeGO = obj1;
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
-        gson.toJson();
+        //gson.toJson();
 
     }
     private void loadResources(){
