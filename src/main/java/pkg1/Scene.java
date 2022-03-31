@@ -20,6 +20,7 @@ public abstract class Scene {
     private boolean isRunning = false;
     protected List<GameObject> gameObjects = new ArrayList<>();
     protected  GameObject activeGO = null;
+    protected boolean levelLoaded = true;
 
     public Scene(){
 
@@ -96,6 +97,13 @@ public abstract class Scene {
             inFile = new String(Files.readAllBytes(Paths.get("level.txt")));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (!inFile.equals("")){
+            GameObject[] objs = gson.fromJson(inFile, GameObject[].class);
+            for (int i = 0; i < objs.length; i ++){
+                addGameObject(objs[i]); //adding deserialized game objects to scene
+            }
+            this.levelLoaded = true;
         }
     }
 }
