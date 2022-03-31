@@ -195,8 +195,9 @@ public class LevelEditorScene extends Scene{
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
+                .registerTypeAdapter(Component.class, new ComponentDeserializer())
                 .create();
-        System.out.println(gson.toJson(obj1));
+        String serialized = gson.toJson(obj1);
 
     }
     private void loadResources(){
