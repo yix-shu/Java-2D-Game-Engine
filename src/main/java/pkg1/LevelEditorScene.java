@@ -1,5 +1,7 @@
 package pkg1;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import components.Sprite;
 import components.SpriteRenderer;
 import components.Spritesheet;
@@ -185,6 +187,11 @@ public class LevelEditorScene extends Scene{
         ));
         this.addGameObject(obj2);
         this.activeGO = obj1;
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        gson.toJson();
 
     }
     private void loadResources(){
