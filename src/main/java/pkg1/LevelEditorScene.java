@@ -193,11 +193,7 @@ public class LevelEditorScene extends Scene{
         this.addGameObject(obj2);
         this.activeGO = obj1;
 
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapter(Component.class, new ComponentDeserializer())
-                .create();
-        String serialized = gson.toJson(obj1);
+
 
     }
     private void loadResources(){
