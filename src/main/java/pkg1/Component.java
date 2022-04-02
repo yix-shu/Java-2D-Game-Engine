@@ -3,6 +3,7 @@ package pkg1;
 import imgui.ImGui;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 public abstract class Component {
 
@@ -17,6 +18,10 @@ public abstract class Component {
         try{
             Field[] fields = this.getClass().getDeclaredFields();
             for (Field field: fields){
+                boolean isPrivate = Modifier.isPrivate(field.getModifiers());
+                if (isPrivate){
+                    field.setAccessible(true);
+                }
                 Class type = field.getType();
                 Object value = field.get(this);
                 String name = field.getName();

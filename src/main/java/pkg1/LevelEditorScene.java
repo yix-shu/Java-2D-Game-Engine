@@ -154,6 +154,7 @@ public class LevelEditorScene extends Scene{
         this.camera = new Camera(new Vector2f());
 
         if (levelLoaded){
+            this.activeGO = gameObjects.get(0);
             return;
         }
         sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
@@ -195,7 +196,7 @@ public class LevelEditorScene extends Scene{
         obj2.addComponent(obj2SpriteR);
 
         this.addGameObject(obj2);
-        this.activeGO = obj1;
+
     }
     private void loadResources(){
         AssetPool.getShader("assets/shaders/default.glsl");
