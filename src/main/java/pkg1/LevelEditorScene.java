@@ -80,7 +80,7 @@ public class LevelEditorScene extends Scene{
     private boolean firstTime = false;
     */
 
-    private GameObject obj1;
+    private GameObject obj2;
     SpriteRenderer obj1Sprite;
     private Spritesheet sprites;
 
@@ -180,7 +180,7 @@ public class LevelEditorScene extends Scene{
                 this.addGameObject(go);
             }
         }*/
-        obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), -1);
+        GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), -1);
         obj1Sprite = new SpriteRenderer();
         obj1Sprite.setColor(new Vector4f(1, 0, 0, 1));
         obj1.addComponent(obj1Sprite);
@@ -194,7 +194,6 @@ public class LevelEditorScene extends Scene{
         obj2Sprite.setTexture(AssetPool.getTexture("assets/images/blendImage2.png"));
         obj2SpriteR.setSprite(obj2Sprite);
         obj2.addComponent(obj2SpriteR);
-
         this.addGameObject(obj2);
 
     }

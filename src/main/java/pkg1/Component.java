@@ -1,5 +1,9 @@
 package pkg1;
 
+
+
+
+
 import imgui.ImGui;
 
 import java.lang.reflect.Field;
@@ -27,11 +31,17 @@ public abstract class Component {
                 String name = field.getName();
 
                 if (type == int.class){
-                    int val = (int) value;
+                    int val = (int)value;
                     int[] imInt = {val};
                     if (ImGui.dragInt(name + ": ", imInt)){ //creates a drag int for the variable
                         field.set(this, imInt[0]);
                     }
+                } else if (type == float.class){
+                    float val = (float)value;
+
+                }
+                if (isPrivate){
+                    field.setAccessible(false);
                 }
             }
         } catch(IllegalAccessException e){
