@@ -38,7 +38,17 @@ public abstract class Component {
                     }
                 } else if (type == float.class){
                     float val = (float)value;
-
+                    float[] imFloat = {val};
+                    if (ImGui.dragFloat(name + ": ", imFloat)){
+                        field.set(this, imFloat[0]);
+                    }
+                } else if (type == boolean.class){
+                    boolean val = (boolean) value;
+                    boolean[] imBool = {val};
+                    if (ImGui.checkbox(name + ": ", val)){
+                        val = !val;
+                        field.set(this, !val);
+                    }
                 }
                 if (isPrivate){
                     field.setAccessible(false);
