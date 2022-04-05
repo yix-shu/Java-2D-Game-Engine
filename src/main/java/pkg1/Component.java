@@ -5,6 +5,8 @@ package pkg1;
 
 
 import imgui.ImGui;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -22,6 +24,11 @@ public abstract class Component {
         try{
             Field[] fields = this.getClass().getDeclaredFields();
             for (Field field: fields){
+                boolean isTransient = Modifier.isTransient(field.getModifiers());
+                if (isTransient){
+                    continue;
+                }
+
                 boolean isPrivate = Modifier.isPrivate(field.getModifiers());
                 if (isPrivate){
                     field.setAccessible(true);
@@ -48,6 +55,18 @@ public abstract class Component {
                     if (ImGui.checkbox(name + ": ", val)){
                         val = !val;
                         field.set(this, !val);
+                    }
+                } else if (type == Vector3f.class){
+                    Vector3f val = (Vector3f) value;
+                    float[] imVec = {val.x, val.y, val.z};
+                    if (ImGui.dragFloat3(name + ": ", imVec)){
+                        val.set(imVec[0], imVec[1], imVec[2]);
+                    }
+                } else if (type == Vector4f.class){
+                    Vector4f val = (Vector4f)value;
+                    float[] imVec4 = {val.x, val.y, val.z, val.w};
+                    if (ImGui.dragFloat4(name + ": ", imVec4)){
+                        val.set(imVec4[0], imVec4[1], imVec4[2], imVec4[3]);
                     }
                 }
                 if (isPrivate){
