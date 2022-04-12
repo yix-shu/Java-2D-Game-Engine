@@ -284,6 +284,19 @@ public class LevelEditorScene extends Scene{
             float spriteHeight = sprite.getHeight() * 4;
             int id = sprite.getTexID();
             Vector2f[] texCoords = sprite.getTexCoords();
+
+            if(ImGui.imageButton(id, spriteWidth, spriteHeight, texCoords[0].x, texCoords[0].y, texCoords[2].x, texCoords[2].y)){
+                System.out.println("Button " + i + " has been clicked");
+            }
+
+            ImVec2 lastButtonPos = new ImVec2();
+            ImGui.getItemRectMax(lastButtonPos);
+            float lastButtonX2 = lastButtonPos.x;
+            float nextButtonX2 = lastButtonX2 + itemSpacing.x + spriteWidth;
+            if (i + 1 < sprites.size() && nextButtonX2 < windowX2){
+                ImGui.sameLine();
+            }
+
         }
         ImGui.end();
     }
