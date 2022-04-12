@@ -260,7 +260,7 @@ public class LevelEditorScene extends Scene{
             obj1.getComponent(SpriteRenderer.class).setSprite(sprites.getSprite(spriteIndex));
         }
         */
-
+        MouseListener.getOrthoX();
         for (GameObject go: this.gameObjects){
             go.update(dt);
         }
@@ -268,7 +268,7 @@ public class LevelEditorScene extends Scene{
     }
     @Override
     public void imgui(){
-        ImGui.begin("Test window");
+        ImGui.begin("Sprites");
 
         ImVec2 windowPos = new ImVec2();
         ImGui.getWindowPos(windowPos);
@@ -285,9 +285,12 @@ public class LevelEditorScene extends Scene{
             int id = sprite.getTexID();
             Vector2f[] texCoords = sprite.getTexCoords();
 
+            ImGui.pushID(i);
+
             if(ImGui.imageButton(id, spriteWidth, spriteHeight, texCoords[0].x, texCoords[0].y, texCoords[2].x, texCoords[2].y)){
                 System.out.println("Button " + i + " has been clicked");
             }
+            ImGui.popID(); //returns inputted id
 
             ImVec2 lastButtonPos = new ImVec2();
             ImGui.getItemRectMax(lastButtonPos);
