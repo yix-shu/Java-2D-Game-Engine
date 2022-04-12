@@ -6,6 +6,7 @@ import components.Sprite;
 import components.SpriteRenderer;
 import components.Spritesheet;
 import imgui.ImGui;
+import imgui.ImVec2;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import util.AssetPool;
@@ -152,12 +153,12 @@ public class LevelEditorScene extends Scene{
 
         loadResources();
         this.camera = new Camera(new Vector2f());
-
+        sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
         if (levelLoaded){
             this.activeGO = gameObjects.get(0);
             return;
         }
-        sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
+
 
         /*int xOffset = 10;
         int yOffset = 10;
@@ -268,7 +269,19 @@ public class LevelEditorScene extends Scene{
     @Override
     public void imgui(){
         ImGui.begin("Test window");
-        ImGui.text("Random texto");
+
+        ImVec2 windowPos = new ImVec2();
+        ImGui.getWindowPos(windowPos);
+        ImVec2 windowSize = new ImVec2();
+        ImGui.getWindowSize(windowSize);
+        ImVec2 itemSpacing = new ImVec2();
+        ImGui.getStyle().getItemSpacing(itemSpacing);
+
+        float windowX2 = windowPos.x + windowSize.x;
+        for (int i = 0; i <sprites.size(); i ++){
+            Sprite sprite = sprites.getSprite(i);
+
+        }
         ImGui.end();
     }
 }
