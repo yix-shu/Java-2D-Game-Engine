@@ -280,7 +280,10 @@ public class LevelEditorScene extends Scene{
         float windowX2 = windowPos.x + windowSize.x;
         for (int i = 0; i <sprites.size(); i ++){
             Sprite sprite = sprites.getSprite(i);
-
+            float spriteWidth = sprite.getWidth() * 4;
+            float spriteHeight = sprite.getHeight() * 4;
+            int id = sprite.getTexId();
+            Vector2f[] texCoords = sprite.getTexCoords();
         }
         ImGui.end();
     }
