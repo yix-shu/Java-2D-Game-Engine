@@ -282,7 +282,7 @@ public class LevelEditorScene extends Scene{
             Sprite sprite = sprites.getSprite(i);
             float spriteWidth = sprite.getWidth() * 4;
             float spriteHeight = sprite.getHeight() * 4;
-            int id = sprite.getTexId();
+            int id = sprite.getTexID();
             Vector2f[] texCoords = sprite.getTexCoords();
         }
         ImGui.end();

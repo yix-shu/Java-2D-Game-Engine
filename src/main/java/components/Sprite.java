@@ -56,4 +56,7 @@ public class Sprite {
     public void setHeight(float height) {
         this.height = height;
     }
+    public int getTexID() {
+        return texture == null ? -1 : texture.getId();
+    }
 }
